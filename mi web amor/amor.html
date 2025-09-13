@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Mi Novia 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      text-align: center;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Estrellas */
+    .star {
+      position: fixed;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    header {
+      padding: 40px;
+      font-size: 2.2em;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+      z-index: 10;
+      position: relative;
+    }
+
+    .typing {
+      display: inline-block;
+      border-right: 3px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Carrusel */
+    .carousel {
+      position: relative;
+      max-width: 600px;
+      margin: 30px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      z-index: 5;
+    }
+
+    .slide {
+      display: none;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .caption {
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 10px;
+      font-size: 1.2em;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      color: white;
+      border: none;
+      font-size: 2em;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      z-index: 6;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* Puntos */
+    .dots {
+      text-align: center;
+      margin-top: 10px;
+      z-index: 6;
+      position: relative;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 4px;
+      background-color: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #ff3366;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding: 20px;
+      font-size: 1.5em;
+      z-index: 10;
+      position: relative;
+    }
+
+    .heart {
+      font-size: 2em;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    /* Botones especiales */
+    #loveButton, #musicButton {
+      position: fixed;
+      bottom: 20px;
+      background: #ff3366;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+      padding: 12px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      transition: transform 0.2s;
+    }
+
+    #loveButton:hover, #musicButton:hover {
+      transform: scale(1.1);
+      background: #ff6688;
+    }
+
+    #loveButton { right: 20px; }
+    #musicButton { left: 20px; }
+
+    /* corazones cayendo */
+    .falling-heart {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+
+    /* Botones hablar */
+    .talk-btn {
+      padding:10px 20px;
+      margin:5px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:1em;
+      transition: transform 0.2s;
+    }
+    .talk-btn:hover {
+      transform: scale(1.1);
+    }
+    .btn-si { background:#28a745; color:white; }
+    .btn-no { background:#dc3545; color:white; }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      header { font-size: 1.6em; padding: 20px; }
+      .carousel { max-width: 90%; }
+      .slide img { height: 250px; }
+      .caption { font-size: 1em; }
+      #loveButton, #musicButton { font-size: 0.9em; padding: 10px 15px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Música -->
+  <audio id="bgMusic" autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+  <header>
+    <span id="dynamicText" class="typing"></span>
+  </header>
+
+  <!-- Carrusel -->
+  <div class="carousel">
+    <div class="slide">
+      <img src="foto1.jpg" alt="Mi amor">
+      <div class="caption">Tu sonrisa ilumina mi vida ✨</div>
+    </div>
+    <div class="slide">
+      <img src="foto2.jpg" alt="Mi princesa">
+      <div class="caption">Eres mi razón de ser ❤️</div>
+    </div>
+    <div class="slide">
+      <img src="foto3.jpg" alt="Recuerdo especial">
+      <div class="caption">Cada momento contigo es magia 💫</div>
+    </div>
+    <div class="slide">
+      <img src="foto4.jpg" alt="Mi cielo">
+      <div class="caption">Siempre juntos, mi vida 💕</div>
+    </div>
+    <button class="nav-btn prev">❮</button>
+    <button class="nav-btn next">❯</button>
+  </div>
+
+  <!-- Puntos -->
+  <div class="dots"></div>
+
+  <footer>
+    Siempre contigo 💑 <br>
+    <span class="heart">❤️</span>
+    <div style="margin-top:20px;">
+      <p>¿Podemos hablar? 💌</p>
+      <button onclick="hablarSi()" class="talk-btn btn-si">Sí ✅</button>
+      <button onclick="hablarNo()" class="talk-btn btn-no">No ❌</button>
+    </div>
+  </footer>
+
+  <!-- Botones -->
+  <button id="loveButton">Te amo ❤️</button>
+  <button id="musicButton">🔊 Música</button>
+
+  <!-- Scripts -->
+  <script>
+    /* Estrellas */
+    function crearEstrella() {
+      const star = document.createElement("div");
+      star.classList.add("star");
+      const size = Math.random() * 3 + 2 + "px";
+      star.style.width = size;
+      star.style.height = size;
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.top = Math.random() * 100 + "vh";
+      star.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 5000);
+    }
+    setInterval(crearEstrella, 200);
+
+    /* Carrusel */
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.querySelector('.dots');
+    let index = 0;
+    let autoSlide;
+
+    slides[0].style.display = "block"; // mostrar la primera al inicio
+
+    for (let i = 0; i < slides.length; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => showSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(i) {
+      slides.forEach(slide => slide.style.display = "none");
+      dots.forEach(dot => dot.classList.remove('active'));
+      slides[i].style.display = "block";
+      dots[i].classList.add('active');
+      index = i;
+    }
+
+    function nextSlide() {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }
+
+    function prevSlide() {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    }
+
+    document.querySelector('.next').addEventListener('click', nextSlide);
+    document.querySelector('.prev').addEventListener('click', prevSlide);
+
+    function startAutoSlide() {
+      autoSlide = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(autoSlide);
+    }
+
+    startAutoSlide();
+
+    /* Corazones cayendo */
+    function crearCorazon() {
+      const heart = document.createElement("div");
+      heart.classList.add("falling-heart");
+      const colores = ["❤️","💖","💘","💝","💕","💗"];
+      heart.innerHTML = colores[Math.floor(Math.random()*colores.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (20 + Math.random() * 30) + "px";
+      heart.style.animationDuration = (3 + Math.random() * 5) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(crearCorazon, 800);
+
+    /* Botón sorpresa */
+    document.getElementById("loveButton").addEventListener("click", () => {
+      alert("Eres el amor de mi vida, siempre estaré contigo 💖✨");
+      for (let i = 0; i < 30; i++) {
+        setTimeout(crearCorazon, i * 100);
+      }
+    });
+
+    /* Botón de música */
+    const music = document.getElementById("bgMusic");
+    const musicButton = document.getElementById("musicButton");
+    let isPlaying = true;
+
+    musicButton.addEventListener("click", () => {
+      if (isPlaying) {
+        music.pause();
+        musicButton.textContent = "🔇 Música";
+      } else {
+        music.play();
+        musicButton.textContent = "🔊 Música";
+      }
+      isPlaying = !isPlaying;
+    });
+
+    /* Frases dinámicas */
+    const frases = [
+      "🌹 Eres mi todo, mi amor eterno 🌹",
+      "✨ Contigo todo es más bonito ✨",
+      "💖 Mi corazón late solo por ti 💖",
+      "💕 Nuestro amor es infinito 💕"
+    ];
+    const textElement = document.getElementById("dynamicText");
+    let fraseIndex = 0;
+
+    function escribirTexto(texto, callback) {
+      let i = 0;
+      textElement.textContent = "";
+      const interval = setInterval(() => {
+        textElement.textContent += texto[i];
+        i++;
+        if (i === texto.length) {
+          clearInterval(interval);
+          setTimeout(callback, 2000); // espera antes de borrar
+        }
+      }, 100);
+    }
+
+    function borrarTexto(callback) {
+      let texto = textElement.textContent;
+      let i = texto.length;
+      const interval = setInterval(() => {
+        textElement.textContent = texto.substring(0, i - 1);
+        i--;
+        if (i === 0) {
+          clearInterval(interval);
+          callback();
+        }
+      }, 50);
+    }
+
+    function cambiarFrase() {
+      escribirTexto(frases[fraseIndex], () => {
+        borrarTexto(() => {
+          fraseIndex = (fraseIndex + 1) % frases.length;
+          cambiarFrase();
+        });
+      });
+    }
+
+    cambiarFrase();
+
+    /* Botones hablar */
+    function hablarSi() {
+      window.open("https://w.app/ldrg8e", "_blank");
+    }
+
+    function hablarNo() {
+      alert("Igual me tienes que hablar 💖");
+      window.open("https://w.app/ldrg8e", "_blank");
+    }
+  </script>
+</body>
+</html>
